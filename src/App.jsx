@@ -207,6 +207,18 @@ function App() {
               <img src="images/background.jpeg" alt="Form Background" className='w-[10%] h-[10%] rounded-full'  />
             </div>
             <h2 className="mb-4 text-2xl font-bold text-center text-indigo-600 sm:text-3xl">Player Registration For HPL-3</h2>
+            <div className="flex flex-col items-center justify-center p-4 mb-6 text-center rounded-lg bg-gradient-to-r from-indigo-100 to-purple-100">
+              <p className="text-lg font-semibold text-indigo-700">Sponsored by: Bazzario</p>
+              <a 
+                href="https://play.google.com/store" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2 mt-2 text-indigo-600 transition-colors hover:text-indigo-800"
+              >
+                <span className="text-2xl">📲</span>
+                <span className="text-base">Download the Bazzario app now from the Play Store!</span>
+              </a>
+            </div>
             
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-6">
               <div className="w-full">
