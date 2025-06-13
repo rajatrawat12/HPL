@@ -204,7 +204,7 @@ function App() {
             onSubmit={handleSubmit}
           >
             <div className='flex flex-row justify-center mb-4 align-middle'>
-              <img src="../public/images/background.jpeg" alt="Form Background" className='w-[10%] h-[10%] rounded-full'  />
+              <img src="images/background.jpeg" alt="Form Background" className='w-[10%] h-[10%] rounded-full'  />
             </div>
             <h2 className="mb-4 text-2xl font-bold text-center text-indigo-600 sm:text-3xl">Player Registration For HPL-3</h2>
             
@@ -366,7 +366,7 @@ function App() {
             )}
           </form>
           <div className="w-[50%] tournament-image rounded-3xl">
-              <img src="../public/images/formBackground.jpeg" alt="Form Background" className='rounded-lg'  />
+              <img src="images/formBackground.jpeg" alt="Form Background" className='rounded-lg'  />
           </div>
         </div>
 
