@@ -12,7 +12,8 @@ function App() {
     state: '',
     role: 'BATSMAN',
     isHaraiya: false,
-    fairPlayGrade: 'A'
+    fairPlayGrade: 'A',
+    basePrice: ''
   })
 
   const [errors, setErrors] = useState({})
@@ -75,6 +76,13 @@ function App() {
     const newErrors = {}
     if (!form.name.trim()) newErrors.name = 'Name is required'
     
+    // Base Price validation
+    if (!form.basePrice) {
+      newErrors.basePrice = 'Base Price is required'
+    } else if (!/^\d+$/.test(form.basePrice)) {
+      newErrors.basePrice = 'Base Price must be a valid number'
+    }
+    
     // Mobile validation
     if (!form.mobile.trim()) {
       newErrors.mobile = 'Mobile number is required'
@@ -116,10 +124,10 @@ function App() {
     const { name, value, type, checked } = e.target
     
     // Handle numeric input restrictions
-    if (name === 'mobile' || name === 'aadhaarNumber' || name === 'pinCode') {
+    if (name === 'mobile' || name === 'aadhaarNumber' || name === 'pinCode' || name === 'basePrice') {
       // Only allow digits and limit length
       const numericValue = value.replace(/[^0-9]/g, '')
-      const maxLength = name === 'mobile' ? 10 : name === 'aadhaarNumber' ? 12 : 6
+      const maxLength = name === 'mobile' ? 10 : name === 'aadhaarNumber' ? 12 : name === 'pinCode' ? 6 : 10
       const truncatedValue = numericValue.slice(0, maxLength)
       
       setForm(prev => ({ ...prev, [name]: truncatedValue }))
@@ -162,7 +170,8 @@ function App() {
           state: form.state,
           role: form.role,
           isHaraiya: form.isHaraiya,
-          fairPlayGrade: form.fairPlayGrade
+          fairPlayGrade: form.fairPlayGrade,
+          basePrice: parseInt(form.basePrice)
         }),
       })
 
@@ -184,7 +193,8 @@ function App() {
         state: '',
         role: 'BATSMAN',
         isHaraiya: false,
-        fairPlayGrade: 'A'
+        fairPlayGrade: 'A',
+        basePrice: ''
       })
       // Refresh the table data only on successful submission
       fetchPlayers()
@@ -353,6 +363,19 @@ function App() {
                 </select>
                 {errors.fairPlayGrade && <p className="mt-1 text-sm text-red-500">{errors.fairPlayGrade}</p>}
               </div>
+
+              <div className="w-full">
+                <label className="block mb-1 text-sm font-semibold text-gray-700">Base Price</label>
+                <input
+                  name="basePrice"
+                  type="text"
+                  value={form.basePrice}
+                  onChange={handleChange}
+                  className={`w-full p-2 border rounded-md bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 ${errors.basePrice ? 'border-red-500' : 'border-gray-300'}`}
+                  placeholder="Enter base price"
+                />
+                {errors.basePrice && <p className="mt-1 text-sm text-red-500">{errors.basePrice}</p>}
+              </div>
             </div>
 
             <div className="mt-8">
@@ -403,6 +426,7 @@ function App() {
                       <th className="px-4 py-3 text-xs font-semibold tracking-wider text-left text-indigo-600 uppercase border-b sm:px-6">Address</th>
                       <th className="px-4 py-3 text-xs font-semibold tracking-wider text-left text-indigo-600 uppercase border-b sm:px-6">Pin Code</th>
                       <th className="px-4 py-3 text-xs font-semibold tracking-wider text-left text-indigo-600 uppercase border-b sm:px-6">State</th>
+                      <th className="px-4 py-3 text-xs font-semibold tracking-wider text-left text-indigo-600 uppercase border-b sm:px-6">Base Price</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -416,6 +440,7 @@ function App() {
                         <td className="px-4 py-4 text-sm font-medium text-gray-900 sm:px-6 whitespace-nowrap">{player.address}</td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-900 sm:px-6 whitespace-nowrap">{player.pinCode}</td>
                         <td className="px-4 py-4 text-sm font-medium text-gray-900 sm:px-6 whitespace-nowrap">{player.state}</td>
+                        <td className="px-4 py-4 text-sm font-medium text-gray-900 sm:px-6 whitespace-nowrap">₹{player.basePrice}</td>
                       </tr>
                     ))}
                   </tbody>
